@@ -40,6 +40,5 @@ def makeGraph():
     return graph
 
 
-    
 graph = makeGraph()
 print(graph.breadthFirstSearch())
