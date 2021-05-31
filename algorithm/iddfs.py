@@ -16,7 +16,7 @@ class Node:
 
     def breadthFirstSearch(self, result=[], que=[]):
         """
-        # BFS(너비 우선 선택)
+        - BFS(너비 우선 선택)
         """
         result.append(self.name)
 
@@ -31,7 +31,7 @@ class Node:
 
     def iterative_deepning_dfs(self, target):
         """
-        # IDDFS - 반복적 깊이 증가 탐색
+        - IDDFS - 반복적 깊이 증가 탐색
         - params: startNode(Node), tartget(str), currentDepth(int), maxDepth(int)
             - IDDFS(타겟): 깊이 = 1로 초기화하고, 최하단에 도달할 때까지 helper를 부르고 깊이 *=2 해줌 (깊이는 탐색은 임의 설정)
             - IDDFS_HELPER(시작노드, 시작 탐색 깊이, 최대 탐색 깊이): 자식들 모두 불러서 recursive 해줌

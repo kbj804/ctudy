@@ -3,8 +3,6 @@ import cv2
 import numpy as np
 
 def detect(image):
-    
-
     gray_scale=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
     th1,img_bin = cv2.threshold(gray_scale,150,225,cv2.THRESH_BINARY)
     img_bin=~img_bin
@@ -40,45 +38,26 @@ def detect(image):
 
     n1 = np.array(stats[2:])
     min_x, min_y, _, _, _ = np.min(n1, axis= 0)
-    # print(n1)
-    _, _, m_w_i, m_h_i, _= np.argmax(n1, axis= 0)
-    _, _, m_w_i2, m_h_i2, _= np.argsort(n1, axis= 0)[0]
-    ll = np.argsort(n1, axis= 0)
-    # print(ll)
-    # print(m_w_i, m_h_i)
-    # print(m_w_i2, m_h_i2)
-    
-    s = n1[:, [1,3]].sum(axis=1).max()
-    print(s)
+
+    # x+w의 최대값과 y+h의 최대값을 구해서 표 전체를 그려줌
+    xw = n1[:, [0,2]].sum(axis=1).max()
+    print("max x+w:", xw)
+
+    yh = n1[:, [1,3]].sum(axis=1).max()
+    print("max y+h", yh)
 
     mm = n1[:, [1,3]].sum(axis=1).argmax()
-    print(mm)
-
-
-    max_x, _, max_w, _, _ = n1[m_w_i]
-    _, max_y, _, max_h, _ = n1[m_h_i]
-
-    max_x2, _, max_w2, _, _ = n1[m_w_i2]
-    _, max_y2, _, max_h2, _ = n1[m_h_i2]
-
-    # print(n1[m_w_i2])
-    # print(n1[m_h_i2])
-
-    x = n1[np.where(n1 >= max_y)]
-
-    w = max_x + max_w
-    h = max_y + max_h
-    print(w,h)
+    print(n1[mm])
     
-    cv2.rectangle(image,(min_x, min_y),(w, 848),(0,255,0), 2)
+    cv2.rectangle(image,(min_x, min_y),(xw, yh),(0,0,255), 2)
 
+    # 얘는 전체 표 그림
     # for x,y,w,h,area in stats[2:]:
         # print(f"x: {x}, y: {y}, w: {w}, h: {h}, pixel: {area}, x+w: {x+w}, y+h: {y+h}")
         # cv2.rectangle(image,(x,y), (x+w, y+h),(0,255,0), 2)
         # cv2.rectangle(image,(28,75),(592,848),(0,255,0), 2)
 
     # re_image = cv2.resize(image, dsize=(0,0), fx=0.2, fy=0.2, interpolation=cv2.INTER_AREA)
-    
     
     cv2.imshow('detect', image)
     cv2.waitKey(0)
