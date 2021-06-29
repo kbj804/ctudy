@@ -14,9 +14,7 @@ def sub_s(gh):
             else:
                 r.pop()
         if r:
-            return 0        
-
-                
+            return 0  
 
     except:
         return 0
